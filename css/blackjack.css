@@ -1,0 +1,11 @@
+#output{
+    font-size: 1.5em;
+}
+
+.clubs, .spades{
+    color: #000000;
+}
+
+.hearts, .diams{
+    color: #ff0000;
+}
