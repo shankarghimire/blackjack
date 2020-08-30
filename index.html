@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlackJack</title>
-   <link rel="stylesheet" href="css/blackjack.css">
+   <link rel="stylesheet" href="./css/blackjack.css">
 </head>
 <body>
     <div>
-        <h1>BlackJack</h1>
+        <div id="message">Press Start Button</div>
+        <div id="start">
+            <button id="btnStart" type="button" class="btn"> Start Game</button>
+        </div>
+        <div id="output">
+            Dealer Hand: <div id="dealerHand"></div>
+            Player Hand:<div id="playerHand"></div>
+        </div>
     </div>
-    <div id="output"></div>  
-    <div id="test"></div>
+      
+   
 
-    <script src="js/blackjack.js"></script>
+    <script src="./js/blackjack.js"></script>
 </body>
 </html>
