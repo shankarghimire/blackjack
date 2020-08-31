@@ -21,6 +21,7 @@
  window.addEventListener('load',init);
  btnStart = document.addEventListener('click', startGame,false); 
 
+ //function to initialize the basic config info when browser loads
  function init(){
      //initiales global variables
      suits = ["spades","hearts","clubs","diams"];
@@ -42,6 +43,7 @@
      createDeckOfCards();   
  }
 
+ //function to create a deck of cards consisting of 52 different cards
  function createDeckOfCards(){
      for(s in suits){
          let suit = suits[s][0].toUpperCase();
@@ -106,6 +108,11 @@ function dealNewCards(){
     for(x = 0; x < 2; x++){
         dealerCard.push(deckOfCards[cardCount]);
         dealerHand.innerHTML += cardOutput(cardCount, x);
+        
+        //code to hide first Dealer Card
+        if(x == 0){
+            dealerHand.innerHTML += '<div id="cover" style="left: 100px;"></div>';
+        }
         cardCount++;
         playerCard.push(deckOfCards[cardCount]);
         playerHand.innerHTML += cardOutput(cardCount, x);

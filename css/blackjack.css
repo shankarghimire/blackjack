@@ -22,6 +22,15 @@
     font-family: 'Loto',
   }
   
+  #cover{
+    height: 160px;
+    width: 120px;
+    padding: 3px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: brown;
+    position: absolute; 
+}
   .top-card{
     font-size: 30px;
     line-height: 20px;
@@ -62,3 +71,5 @@
         height: 180px;
         width: 500px;
     }
+
+  
