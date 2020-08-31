@@ -9,3 +9,56 @@
 .hearts, .diams{
     color: #ff0000;
 }
+.icard{
+    height: 160px;
+    width: 120px;
+    padding: 3px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 100px;
+    display: inline-block;
+    font-family: 'Loto',
+  }
+  
+  .top-card{
+    font-size: 30px;
+    line-height: 20px;
+    left: 2px;
+    top: 2px;
+  }
+  .content-card{
+    text-align: center;
+    font-size: 70px;
+  }
+  
+  .bottom-card{
+    font-size: 30px;
+    line-height: 20px;
+    right: 2px;
+    bottom: 2px;
+    transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+     -ms-transform: rotate(-180deg);
+     -o-transform: rotate(-180deg);
+  }
+    .hearts .suit::after{
+      content: '\2665';
+     
+    }
+  .diams .suit::after{
+      content: '\2666';
+    }
+  .spades .suit::after{
+      content: '\2660';
+    }
+  .clubs .suit::after{
+      content: '\2663';
+    }
+
+    #dealerHand, #playerHand{
+        height: 180px;
+        width: 500px;
+    }

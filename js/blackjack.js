@@ -40,9 +40,6 @@
      
      //section to call other functions
      createDeckOfCards();   
-  
-    console.log("After windows loads events: ");
-    console.log(deckOfCards);
  }
 
  function createDeckOfCards(){
@@ -63,7 +60,8 @@
              //console.log(numbers[n]+ "&" +  suits[s]  + ";");
          }   
      }
-     //console.log(deckOfCards);  
+     console.log(" Deck of Cards -before Shuffuling:");
+     console.log(deckOfCards);  
      //randomCard();     
  }
 
@@ -81,6 +79,8 @@ function  shuffleDeckOfCards(cardArray){
         cardArray [i] = cardArray[j];
         cardArray[j] = temp;
     }
+    console.log("Deck of Cards after shuffling: ");
+    console.log(deckOfCards);
     return cardArray;
 }
 
@@ -91,24 +91,24 @@ function startGame(){
 
    //function call to deal cards
    dealNewCards();
-   console.log("After start button is clicked: ");
-   console.log(deckOfCards);
-   //randomCard();
+   //console.log("After start button is clicked: ");
+   //console.log(deckOfCards);
+   
 }
 
 function dealNewCards(){
+    //alert("Testing from 'dealNewCards() function!'");
     playerCard = [];
     dealerCard = [];
     dealerHand.innerHTML = "";
     playerHand.innerHTML = "";
-
     let x;
     for(x = 0; x < 2; x++){
         dealerCard.push(deckOfCards[cardCount]);
-        dealerHand.innerHTML += cardOutput();
+        dealerHand.innerHTML += cardOutput(cardCount, x);
         cardCount++;
         playerCard.push(deckOfCards[cardCount]);
-        playerHand.innerHTML += cardOutput();
+        playerHand.innerHTML += cardOutput(cardCount, x);
         cardCount++;
     }
     console.log("Cards at Dealer's Hand : ");
@@ -117,6 +117,14 @@ function dealNewCards(){
     console.log(playerCard);
 
 }
- function cardOutput(){
-    return "<span style='color:" + deckOfCards[cardCount].bgcolor + "';>" + deckOfCards[cardCount].cardNum + "&" + deckOfCards[cardCount].icon + ";</span>";
+ function cardOutput(n,x){
+      //returns on GUI form
+    var hpos = (x > 0 ) ? x * 60 + 100: 100;
+    var card = '<div class="icard ' +  deckOfCards[n].icon +'" style=left:' + hpos +'px;><div class="top-card suit">' + deckOfCards[n].cardNum  +' <br></div> <div class="content-card suit">  </div>  <div class="bottom-card suit">' + deckOfCards[n].cardNum +'<br></div></div>';
+
+    return card;
+     //returns on CUI form
+    //return "<span style='color:" + deckOfCards[n].bgcolor + "';>" + deckOfCards[n].cardNum + "&" + deckOfCards[n].icon + ";</span>";
+
+   
  }
