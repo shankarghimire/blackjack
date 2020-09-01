@@ -22,7 +22,7 @@
     font-family: 'Loto',
   }
   
-  #cover{
+  #coverCard{
     height: 160px;
     width: 120px;
     padding: 3px;
@@ -72,4 +72,12 @@
         width: 500px;
     }
 
-  
+  #message{
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+  }
+
+  #btnNewDeal, #playerActions{
+    display: none;
+  }

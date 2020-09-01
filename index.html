@@ -8,16 +8,37 @@
 </head>
 <body>
     <div>
-        <div id="message">Press Start Button</div>
-        <div id="start">
-            <button id="btnStart" type="button" class="btn"> Start Game</button>
-        </div>
-        <div id="output">
-            Dealer Hand: <div id="dealerHand"></div>
-            Player Hand:<div id="playerHand"></div>
+        <div id="header-info">
+            <h1>BlackJack Game</h1> 
+            <div id="message">Press Start Button</div>
+            <div id="start">
+                <button id="btnStart" type="button" class="btn"> Start Game</button>
+            </div>
+            <div id="total">Total $<span id="totalDollars"></span></div>
+            <div>Bet Amount $
+                <input type="number" id="betAmount" value="5" min="1" max="100">
+                <button id="maxBetAmount" type="button" class="btn">Max Bet</button>
+            </div>
         </div>
     </div>
-      
+    <div>  
+        <div id="output">
+            Dealer Hand: <span id="dealerCardValue"></span>
+            <div id="dealerHand"></div>
+            Player Hand: <span id="playerCardValue"></span>
+            <div id="playerHand"></div>
+        </div>
+    </div>
+    <div id="playerActions">
+        <button id="btnHold" type="button" class="btn">Hold</button>
+        <button id="btnHit" type="button" class="btn">Hit</button>
+        <button id="btnDouble" type="button" class="btn">Double</button>
+        <button id="btnDeal" type="button" class="btn">Deal</button>
+    </div>
+    <div id="btnDealSetting">
+        <button id="btnNewDeal" type="button" class="btn">Start New Deal</button>
+    
+    </div>
     <script src="./js/blackjack.js"></script>
 </body>
 </html>
