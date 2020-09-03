@@ -1,44 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BlackJack</title>
-   <link rel="stylesheet" href="./css/blackjack.css">
-</head>
-<body>
-    <div>
+    <link rel="stylesheet" href="./css/blackjack.css" />
+  </head>
+  <body>
+    <div id="wrapper">
         <div id="header-info">
-            <h1>BlackJack Game</h1> 
-            <div id="message">Press Start Button</div>
-            <div id="start">
-                <button id="btnStart" type="button" class="btn"> Start Game</button>
-            </div>
-            <div id="total">Total $<span id="totalDollars"></span></div>
-            <div>Bet Amount $
-                <input type="number" id="betAmount" value="5" min="1" max="100">
-                <button id="maxBetAmount" type="button" class="btn">Max Bet</button>
-            </div>
-        </div>
-    </div>
-    <div>  
-        <div id="output">
+         
+          <h2 id="playerInfo"></h2>
+          <h2 id="gameName">BlackJack Game</h2>
+          
+        </div>   
+      
+      <div id="gameArea">
+        <div id="message">------Press Start Button-----</div>
+       
+          <div id="total">
+            Your Wallet Balance : $<span id="totalDollars">0.0</span>
+          </div>
+          <div>
+            Bet Amount $
+            <input type="number" id="inputBetAmount" value="5" min="1" max="100" />
+            <button id="maxBetAmount" type="button" class="btn">Max Bet</button>
+          </div>
+          <div id="start">
+            <button id="btnStart" type="button" class="btn">Start Game</button>
+          </div>
+          <div id="output">
             Dealer Hand: <span id="dealerCardValue"></span>
             <div id="dealerHand"></div>
             Player Hand: <span id="playerCardValue"></span>
             <div id="playerHand"></div>
+          </div>
+          <div id="playerActions">
+            <button id="btnHold" type="button" class="btn">Hold</button>
+            <button id="btnHit" type="button" class="btn">Hit</button>
+            <button id="btnDouble" type="button" class="btn">Double</button>
+          </div>
+          <div id="btnDealSetting">
+            <button id="btnNewDeal" type="button" class="btn">
+              Start New Deal
+            </button>
+          </div>
+      </div> <!--end of div- gameArea -->
+
+      <div id="divGameSettings">
+        <h3>Settings</h3>
+        <fieldset>
+          <legend>Game Registration</legend>
+          <label for="inputPlayerName">Player Name : </label>
+          <input type="text" id="inputPlayerName"  placeholder="Full Name" value="" name="inputPlayerName"/><span class="mandatory">*</span>
+          <label for="inputDepositAmount">Deposit Amount ($) : </label>
+          <input type="number" id="inputDepositAmount" value="10" name="inputDepositAmount" />
+        </fieldset>
+        <div id="btnOKCancel">
+          <button id="btnRegistrationOK" class="btn">OK</button>
+          <button id="btnRegistrationCancel" class="btn">Cancel</button>
         </div>
-    </div>
-    <div id="playerActions">
-        <button id="btnHold" type="button" class="btn">Hold</button>
-        <button id="btnHit" type="button" class="btn">Hit</button>
-        <button id="btnDouble" type="button" class="btn">Double</button>
-        <button id="btnDeal" type="button" class="btn">Deal</button>
-    </div>
-    <div id="btnDealSetting">
-        <button id="btnNewDeal" type="button" class="btn">Start New Deal</button>
-    
-    </div>
+      </div> <!--end of div- gameSettings-->
+      <button id="btnSettings">&#9881</button>
+      <div id="sorryMessage"></div>
+    </div> <!--end of div- wrapper -->
     <script src="./js/blackjack.js"></script>
-</body>
+  </body>
 </html>
