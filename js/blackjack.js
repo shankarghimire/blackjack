@@ -2,6 +2,7 @@
 //globar variables to hold cards information
  var suits = ["spades","hearts","clubs","diams"];
  var numbers =["A","2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] ;
+//var numbers =["A","A", "A", "A", "A", "A", "A", "A", "A", "10", "J", "Q", "K"] ;
  var deckOfCards=[]; //an empty array to hold 52 cards
  var cardCount = 0; //
  var playerCard=[];
@@ -22,6 +23,8 @@
  var pHeight;
  var pName;
  var dAmount;
+ var playerHandValue =0;
+ var dealerHandValue = 0;
 
 
 
@@ -135,10 +138,13 @@
         dealerHand.innerHTML = "";
         dealerCardValue.innerHTML = "";
         playerCardValue.innerHTML = "";
-        message.innerHTML ="Click on 'Start Game' to deal cards!"
+        message.innerHTML ="Fix Bet Amount & Click on 'Start Game'";
         inputBetAmount.disabled = false;
+        
+        
         btnStart.style.display = 'block';
         btnNewDeal.style.display = 'none';
+
         // maxBetAmount.disabled = false;
         // maxBetAmount.style.backgroundColor = "rgb(0,255,0)";
         // maxBetAmount.style.color = "#ffffff";
@@ -202,7 +208,19 @@
     maxBetAmount.style.color ="#ffffff";
     maxBetAmount.style.textShadow = "2px 2px 3px #000000";
     maxBetAmount.disabled = false;
+    maxBetAmount.focus();
  }
+
+ function checkBetAmount(){
+     let tAmount = parseFloat(totalAmount.innerHTML);
+     let bAmount = parseFloat(inputBetAmount.value);
+     if(bAmount > tAmount){
+         return false;
+     }
+     return true;
+     
+ }
+
  function pageLayout(){
      //load globar variable
      aWidth = window.innerWidth;
@@ -210,18 +228,19 @@
     //  alert("aHeight: " + aHeight);
      pWidth = aWidth - 300;
      pHeight = aHeight - 10;
-     wrapper.style.width = '80%';
+    //  wrapper.style.width = '80%';
      wrapper.style.height = pHeight + 'px';
 
  }
 
  //function to create a deck of cards consisting of 52 different cards
  function createDeckOfCards(){
+    //  var test = 0;
      for(s in suits){
          let suit = suits[s][0].toUpperCase();
          let bgcolor = (suit == 'S' || suit == 'C') ? "#000000" : "#ff0000";
          for(n in numbers){
-             let cardValue =( ( n > 9 ) ? 10 : (parseInt(n) + 1) );
+             let cardValue =( ( n >= 9 ) ? 10 : (parseInt(n) + 1) );
              //creates a Card Object
              let aCard = {
                  suit: suit,
@@ -265,32 +284,42 @@ function startGame(){
     dealerBlackJack = false;
     playerBlackJack = false;
     cardCount = 0;
+    let tAmount = parseFloat(totalDollars.innerHTML);
+    let bAmount = parseFloat(inputBetAmount.value);
 
-    //Call function to disable maxBetButton
-    disableMaxBetButton();
-    // if(userNotRegistered){
-    //     inputPlayerInformation();
-    // }
+    if(bAmount <= tAmount){
+        //Call function to disable maxBetButton
+        disableMaxBetButton();
+        // if(userNotRegistered){
+        //     inputPlayerInformation();
+        // }
+        //alert("Testing click event from start button");
+        shuffleDeckOfCards(deckOfCards);
+
+        //function call to deal cards
+        dealNewCards();
+
+        //function call to check BlackJack has occurred or not
+        checkBlackJack();
+
+        //Extract bet amount
+        let currentBetAmount = parseFloat(inputBetAmount.value);
+        //updateTotalAmount(-currentBetAmount);
+        updateTotalAmountAfterBet(currentBetAmount);
+
+        //Hide Start Button
+        btnStart.style.display = "none";
+        //document.getElementById('start').style.display = 'none';
+        //totalDollars.innerHTML = totalAmount;
+    }
+    else{
+        let msg =`Hey! ${playerName.value}, you don't have sufficient blanace in your Wallet!\n Please, load your Wallet.`;
+        window.alert(msg);
+        divGameSettings.style.display = 'block';
+        gameArea.style.display = 'none';
+    }
     
-   
-
-    //alert("Testing click event from start button");
-   shuffleDeckOfCards(deckOfCards);
-
-   //function call to deal cards
-   dealNewCards();
-
-   //function call to check BlackJack has occurred or not
-   checkBlackJack()
-
-   //Extract bet amount
-   let currentBetAmount = parseFloat(inputBetAmount.value);
-   updateTotalAmount(-currentBetAmount);
-
-   //Hide Start Button
-   btnStart.style.display = "none";
-   //document.getElementById('start').style.display = 'none';
-   //totalDollars.innerHTML = totalAmount;
+    
    //console.log("After start button is clicked: ");
    //console.log(deckOfCards); 
 }
@@ -316,7 +345,7 @@ function dealNewCards(){
     deal();
 
      //function call to check BlackJack has occurred or not
-    checkBlackJack()
+    //checkBlackJack()
     console.log("cardCount: ");
     console.log(cardCount);
 }
@@ -342,10 +371,10 @@ function deal(){
     //playerCardValue.innerHTML = calculatePlayerCardValue();
     playerCardValue.innerHTML = checkTotal(playerCard);
 
-    //console.log("Cards at Dealer's Hand : ");
-    //console.log(dealerCard);
-    //console.log("Cards at Player's Hand : ")
-    //console.log(playerCard);
+    console.log("Cards at Dealer's Hand : ");
+    console.log(dealerCard);
+    console.log("Cards at Player's Hand : ")
+    console.log(playerCard);
  
 }
 
@@ -473,13 +502,13 @@ function dealNextCard(){
   
     if(playerBlackJack && dealerBlackJack){
         gamePush = true;
-        message.innerHTML += "Player BlackJack! Dealer BlackJack! PUSH";  
+        message.innerHTML += "<br>PUSH!!";  
     }
     else if(playerBlackJack){
         playerWins = true;
         message.innerHTML += "Player BlackJack!";
-        // payoutJack = 1.5;
-        // newAmount = currentBetValue + ( currentBetValue * payoutJack);
+        payoutJack = 1.5;
+        //newAmount = currentBetValue + ( currentBetValue * payoutJack);
     }
     else if(playerValue > 21 && dealerValue > 21){
         // newAmount = currentBetValue;
@@ -487,8 +516,9 @@ function dealNextCard(){
         message.innerHTML += "<br>Player and Dealer both Busted!!!PUSH!";
     }
     else if(playerValue > 21){
+        playerWins = false;
         message.innerHTML += "Player Busted!!!<br>Dealer WINS! Try Again.";
-        message.innerHTML += "<br>You lost $" + currentBetValue + "!";
+        // message.innerHTML += "<br>You lost $" + currentBetValue + "!";
     }
     // else if(playerValue == 21 && playerCard.length == 2){
     //     message.innerHTML += "<br>Player BlackJack!!!";
@@ -496,40 +526,45 @@ function dealNextCard(){
     // }
     else if((playerValue <=21 && playerValue > dealerValue)|| (dealerValue > 21 && playerValue <= 21)){
         playerWins = true;
-        newAmount = currentBetValue +  currentBetValue; //bet amount has been alreay reduced from the total dollars
-        message.innerHTML +=  "<br>Congratulations! You WIN!";
+        // newAmount = currentBetValue +  currentBetValue; //bet amount has been alreay reduced from the total dollars
+        // message.innerHTML +=  "<br>Congratulations! You WIN!";
     }
     else if(playerValue == dealerValue){
         gamePush = true;
-        newAmount = currentBetValue;
+        // newAmount = currentBetValue;
         message.innerHTML += "<br>PUSH!";
     }
     else{
+        playerWins = false;
         message.innerHTML += "<br>Dealer WINS! Try Again.";
         message.innerHTML += "<br>You lost $" + currentBetValue + "!";
     }
     
     //calculate winning amount or not
     if(gamePush){
-        newAmount = currentBetValue;
-        updateTotalAmount(newAmount); 
+        // newAmount = currentBetValue;
+        //updateTotalAmount(newAmount); 
+        updateTotalAmountAfterPush(currentBetValue);
     }
     else if(playerBlackJack){
         let blackJackAmount = 0.0;
         blackJackAmount= currentBetValue * 1.5;
         newAmount = currentBetValue + blackJackAmount ;
-        
-        updateTotalAmount(newAmount);
+        updateTotalAmountAfterWin(newAmount);
+        //updateTotalAmount(newAmount);
         message.innerHTML += "<br>You Won $" + (blackJackAmount.toFixed(2)) + "!";
     }
     else if(playerWins){
         //currentBetValue has been already reduced from the total amount
         // currentBetValue has to be rolled back to the total amount before calculation
         newAmount = 2 * currentBetValue;
-        updateTotalAmount(newAmount);
+        updateTotalAmountAfterWin(newAmount);
+        //updateTotalAmount(newAmount);
         message.innerHTML += "<br>You Won $" + currentBetValue.toFixed(2) + "!";
     }
-   
+   else{
+       updateTotalAmountAfterLose();
+   }
     //console.log("testing");
     btnDealSetting.style.display = "block";
     //console.log("testing");
@@ -659,7 +694,33 @@ const cancelGame = ()=>{
 function updateTotalAmount(amount){
     let currentAmount = parseFloat( totalDollars.innerHTML);
     currentAmount = currentAmount + amount;
-
     totalDollars.innerHTML = currentAmount.toFixed(2);
+}
 
+function updateTotalAmountAfterBet(amount){
+    let tAmount = 0.0;
+    let bAmount = 0.0;
+    tAmount = parseFloat(totalDollars.innerHTML);
+    bAmount = inputBetAmount.value;
+    tAmount = tAmount - bAmount;
+    totalDollars.innerHTML = tAmount.toFixed(2);
+}
+
+function updateTotalAmountAfterWin(amount){
+    let tAmount = parseFloat(totalDollars.innerHTML);
+    tAmount = tAmount + amount;
+    totalDollars.innerHTML = tAmount.toFixed(2);
+}
+
+function updateTotalAmountAfterLose(){
+    let tAmount = parseFloat(totalDollars.innerHTML);
+    // tAmount = tAmount - amount;
+    totalDollars.innerHTML = tAmount.toFixed(2);
+
+}
+
+function updateTotalAmountAfterPush(amount){
+    let tAmount = parseFloat(totalDollars.innerHTML);
+    tAmount = tAmount + amount;
+    totalDollars.innerHTML = tAmount.toFixed(2);
 }
