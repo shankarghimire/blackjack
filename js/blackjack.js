@@ -61,6 +61,7 @@
 
  //Adds event listener
  window.addEventListener('load',init);
+ window.addEventListener('resize',init);
  //btnStart = document.getElementById('btnStart').addEventListener('click', startGame,false); 
 
  //function to initialize the basic config info when browser loads
@@ -222,14 +223,40 @@
  }
 
  function pageLayout(){
+     
      //load globar variable
      aWidth = window.innerWidth;
      aHeight = window.innerHeight;
-    //  alert("aHeight: " + aHeight);
-     pWidth = aWidth - 300;
-     pHeight = aHeight - 10;
-    //  wrapper.style.width = '80%';
-     wrapper.style.height = pHeight + 'px';
+
+     //for mobile screen size <= 620px
+     if(aWidth  <= 620){
+        //  alert("aHeight: " + aHeight);
+        pWidth = aWidth - 300;
+        pHeight = aHeight - 10;
+        wrapper.style.width = '100%';
+        wrapper.style.height = pHeight + 'px';
+
+        //btnSetting
+        btnSettings.style.width = '25px';
+        btnSettings.style.height = '25px'
+
+     }
+     else{
+         //for the screen larger than 620px
+        pWidth = aWidth - 300;
+        pHeight = aHeight - 10;
+        wrapper.style.width = '80%';
+        wrapper.style.marginTop ='0';
+        wrapper.style.marginBottom = '0';
+        wrapper.style.marginLeft = 'auto';
+        wrapper.style.marginRight ='auto';
+        wrapper.style.height = pHeight + 'px';
+
+        //btnSetting
+        btnSettings.style.width = '30px';
+        btnSettings.style.height = '30px'
+     }
+    
 
  }
 
@@ -357,7 +384,12 @@ function deal(){
         
         //code to hide first Dealer Card
         if(x == 0){
-            dealerHand.innerHTML += '<div id="coverCard" style="left: 100px;"></div>';
+            if(aWidth <= 620){
+                dealerHand.innerHTML += '<div id="coverCard" style="left: 30px;"></div>';
+            }else{
+                dealerHand.innerHTML += '<div id="coverCard" style="left: 100px;"></div>';
+            }
+            
         }
         cardCount++;
         playerCard.push(deckOfCards[cardCount]);
@@ -418,7 +450,15 @@ function dealNextCard(){
 }
  function cardOutput(n,x){
       //returns on GUI form
-    var cardHorizontalPosition = (x > 0 ) ? x * 60 + 100: 100;
+      let cardHorizontalPosition = 0 ;
+    //style for mobile device
+    if(aWidth <= 620){
+        cardHorizontalPosition = (x > 0 ) ? x * 30 + 30: 30;
+    }
+    else{
+        cardHorizontalPosition = (x > 0 ) ? x * 60 + 100: 100;
+    }
+    
     var card = '<div class="icard ' +  deckOfCards[n].icon +'" style=left:' + cardHorizontalPosition +'px;><div class="top-card suit">' + deckOfCards[n].cardNum  +' <br></div> <div class="content-card suit">  </div>  <div class="bottom-card suit">' + deckOfCards[n].cardNum +'<br></div></div>';
     return card;
      //returns on CUI form
