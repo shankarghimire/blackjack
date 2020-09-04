@@ -14,7 +14,7 @@ body{
   margin: 0 auto;
   background-color: rgb(255,255,255);
   position: relative;
-  padding: 10px;
+  padding: 0px;
   box-shadow: 5px 5px 5px rgb(128,128,128);
 }
 .clubs, .spades{
@@ -115,12 +115,23 @@ body{
 #header-info{
   /* position: relative; */
   background-color: cornflowerblue;
+  margin: 0;
+  padding: 0 0 3px 0;
+  
+  border-bottom: 2px solid gray;
+}
+#header-info h2{
+  /* position: relative; */
+  background-color: cornflowerblue;
+  margin: 0;
+  padding: 0;
+  
 }
   
 #btnSettings{
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: 5px;
   color: #ffffff;
   font-size: 2em;
   font-weight: bolder;
@@ -173,6 +184,9 @@ input{
 form > button{
   width: 90px;
 
+}
+#inputBetAmount{
+  z-index: -1;
 }
 #btnOKCancel{
   /* border: 1px solid lightgray; */

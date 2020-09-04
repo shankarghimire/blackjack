@@ -14,7 +14,7 @@
  var playerBlackJack = false;
  var dealerBlackJack = false;
  var playerName = "Mr. Game Lover";
- var depositAmount = 0;
+ var depositAmount = 0.0;
  var userNotRegistered = true;
  var aWidth;
  var aHeight;
@@ -52,6 +52,7 @@
  var wrapper;
  var gameArea;
  var sorryMessage;
+ var maxBetAmount;
  
 
 
@@ -91,6 +92,7 @@
      playerName = document.getElementById('inputPlayerName');
      depositAmount = document.getElementById('inputDepositAmount');
     sorryMessage = document.getElementById('sorryMessage');
+    maxBetAmount = document.getElementById('maxBetAmount');
 
      divGameSettings.style.display = 'block';
      gameArea.style.display = 'none';
@@ -127,7 +129,22 @@
         //console.log("Testing from btnNewDeal ");
         //alert("Testing 'New Deal' button" );
         //dealNewCards();
-        startGame();
+
+        //Enables the inputBetAmount input
+        playerHand.innerHTML = "";
+        dealerHand.innerHTML = "";
+        dealerCardValue.innerHTML = "";
+        playerCardValue.innerHTML = "";
+        message.innerHTML ="Click on 'Start Game' to deal cards!"
+        inputBetAmount.disabled = false;
+        btnStart.style.display = 'block';
+        btnNewDeal.style.display = 'none';
+        // maxBetAmount.disabled = false;
+        // maxBetAmount.style.backgroundColor = "rgb(0,255,0)";
+        // maxBetAmount.style.color = "#ffffff";
+        enableMaxBetButton();
+
+        //startGame();
 
     },false);
 
@@ -138,6 +155,7 @@
     btnSettings.addEventListener('click',()=>{
         //alert("Testing!!!");
         divGameSettings.style.display = 'block';
+        gameArea.style.display = 'none';
         sorryMessage.style.display = 'none';
     },false);
 
@@ -154,8 +172,8 @@
 
     inputBetAmount.addEventListener('change',()=>{
         //alert("Testing!!!");
-        let tAmount = parseInt( totalDollars.innerHTML);
-        let bAmount = parseInt(inputBetAmount.value);
+        let tAmount = parseFloat( totalDollars.innerHTML);
+        let bAmount = parseFloat(inputBetAmount.value);
         if(bAmount > tAmount){
             alert("You canot bet more than your Wallet Balance!");
             inputBetAmount.value = tAmount;
@@ -163,9 +181,28 @@
     },false);
 
     
+    maxBetAmount.addEventListener('click',()=>{
+        inputBetAmount.value = totalDollars.innerHTML;
+        disableMaxBetButton();
+        // maxBetAmount.style.backgroundColor = "rgb(128,128,128)";
+        // maxBetAmount.style.color ="lightgrey";
+        // maxBetAmount.disabled = true;
+    },false);
 
  }
 
+ function disableMaxBetButton(){
+    maxBetAmount.style.backgroundColor = "rgb(128,128,128)";
+    maxBetAmount.style.color ="lightgrey";
+    maxBetAmount.style.textShadow = "none";
+    maxBetAmount.disabled = true;
+ }
+ function enableMaxBetButton(){
+    maxBetAmount.style.backgroundColor = "rgb(255,0,0)";
+    maxBetAmount.style.color ="#ffffff";
+    maxBetAmount.style.textShadow = "2px 2px 3px #000000";
+    maxBetAmount.disabled = false;
+ }
  function pageLayout(){
      //load globar variable
      aWidth = window.innerWidth;
@@ -228,6 +265,9 @@ function startGame(){
     dealerBlackJack = false;
     playerBlackJack = false;
     cardCount = 0;
+
+    //Call function to disable maxBetButton
+    disableMaxBetButton();
     // if(userNotRegistered){
     //     inputPlayerInformation();
     // }
@@ -244,7 +284,7 @@ function startGame(){
    checkBlackJack()
 
    //Extract bet amount
-   let currentBetAmount = parseInt(inputBetAmount.value);
+   let currentBetAmount = parseFloat(inputBetAmount.value);
    updateTotalAmount(-currentBetAmount);
 
    //Hide Start Button
@@ -396,6 +436,8 @@ function dealNextCard(){
 
  function endPlay(){
      //alert("Testing-endPlay() function");
+     //Disables the input bet amount button
+     inputBetAmount.disabled = true;
     endGame = true;
     document.getElementById('coverCard').style.display = 'none';
 
@@ -425,8 +467,8 @@ function dealNextCard(){
     let payoutJack  = 1;
     let playerWins = false;
     let gamePush = false;
-    let currentBetValue = parseInt( inputBetAmount.value);
-    let newAmount = 0;
+    let currentBetValue = parseFloat( inputBetAmount.value);
+    let newAmount = 0.0;
     // alert("bet value : " + betValue);
   
     if(playerBlackJack && dealerBlackJack){
@@ -473,16 +515,19 @@ function dealNextCard(){
         updateTotalAmount(newAmount); 
     }
     else if(playerBlackJack){
-        newAmount = currentBetValue +  currentBetValue * 1.5;
+        let blackJackAmount = 0.0;
+        blackJackAmount= currentBetValue * 1.5;
+        newAmount = currentBetValue + blackJackAmount ;
+        
         updateTotalAmount(newAmount);
-        message.innerHTML += "<br>You Won $" + (currentBetValue * 1.5) + "!";
+        message.innerHTML += "<br>You Won $" + (blackJackAmount.toFixed(2)) + "!";
     }
     else if(playerWins){
         //currentBetValue has been already reduced from the total amount
         // currentBetValue has to be rolled back to the total amount before calculation
         newAmount = 2 * currentBetValue;
         updateTotalAmount(newAmount);
-        message.innerHTML += "<br>You Won $" + currentBetValue + "!";
+        message.innerHTML += "<br>You Won $" + currentBetValue.toFixed(2) + "!";
     }
    
     //console.log("testing");
@@ -548,33 +593,41 @@ function checkBlackJack(){
     }
 }
 
-function inputPlayerInformation(){
-    let isNumber = false;
-    let pName = prompt("Please, enter your name : ", "Mr. Gamer");
+// function inputPlayerInformation(){
+//     let isNumber = false;
+//     let pName = prompt("Please, enter your name : ", "Mr. Gamer");
 
-    if( pName != null &&  pName.length > 0){
-        playerName = pName;
-    }
-    else{
-        playerName = playerName;
-    }
+//     if( pName != null &&  pName.length > 0){
+//         playerName = pName;
+//     }
+//     else{
+//         playerName = playerName;
+//     }
 
-    depositAmount = prompt("Please, enter the deposit amount to start game: ",10);  
-    while(isNaN(depositAmount) || depositAmount == null || depositAmount < 10){
-        depositAmount = prompt("Please, enter the VALID deposit amount (minimum $10) to start game: ",0);  
-    }
+//     depositAmount = prompt("Please, enter the deposit amount to start game: ",10);  
+//     while(isNaN(depositAmount) || depositAmount == null || depositAmount < 10){
+//         depositAmount = prompt("Please, enter the VALID deposit amount (minimum $10) to start game: ",0);  
+//     }
     
-    //alert(depositAmount);
-    playerInfo.innerHTML = "Hey, " + playerName + " !";
-    gameName.innerHTML = "Welcome to BlackJack!";
-    totalDollars.innerHTML = depositAmount;
-    userNotRegistered = false;
-}
+//     //alert(depositAmount);
+//     playerInfo.innerHTML = "Hey, " + playerName + " !";
+//     gameName.innerHTML = "Welcome to BlackJack!";
+//     totalDollars.innerHTML = depositAmount;
+//     userNotRegistered = false;
+// }
 
 const registerGame = () =>{
     //alert("Testing!!!");
     pName = playerName.value;
     dAmount = depositAmount.value;
+    let previousDepositAmount ;
+    let newTotalAmount = 0.0;
+    if((isNaN(totalDollars.innerHTML))){
+        previousDepositAmount = 0.0;
+    }else{
+        previousDepositAmount =parseFloat(totalDollars.innerHTML);
+    }
+    
     let isValid = true;
     if(pName == "" || pName == null){
         alert("Please, fill up the player Name !");
@@ -586,10 +639,11 @@ const registerGame = () =>{
         isValid = false;
     }
     if(isValid){
+        newTotalAmount = parseFloat( previousDepositAmount) + parseFloat( dAmount);
         gameArea.style.display = 'block';
         divGameSettings.style.display = 'none';
         playerInfo.innerHTML = `Hey, ${pName}`;
-        totalDollars.innerHTML = `${dAmount}`;
+        totalDollars.innerHTML = `${newTotalAmount.toFixed(2)}`;
         gameName.innerHTML = "Welcome to BlackJack!";
     }  
 }
@@ -603,9 +657,9 @@ const cancelGame = ()=>{
 }
 
 function updateTotalAmount(amount){
-    let currentAmount = parseInt( totalDollars.innerHTML);
+    let currentAmount = parseFloat( totalDollars.innerHTML);
     currentAmount = currentAmount + amount;
 
-    totalDollars.innerHTML = currentAmount;
+    totalDollars.innerHTML = currentAmount.toFixed(2);
 
 }
