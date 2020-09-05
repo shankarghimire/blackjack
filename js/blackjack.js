@@ -238,10 +238,10 @@
      }
      else{
          //for the screen larger than 620px
-        pWidth = aWidth - 300;
+        //pWidth = aWidth - 300;
         pHeight = aHeight - 10;
         wrapper.style.width = '80%';
-        // wrapper.style.height = '100%';
+        wrapper.style.height = pHeight +'px';
         wrapper.style.marginTop ='0';
         wrapper.style.marginBottom = '0';
         wrapper.style.marginLeft = 'auto';
@@ -512,7 +512,7 @@ function dealNextCard(){
     playerActions.style.display = "none";
     btnNewDeal.style.display = 'block';
   
-    message.innerHTML += "Game Over!!!";
+    message.innerHTML += "Game Over! ";
 
     //calculates Dealer's Card value
     let dealerValue = checkTotal(dealerCard);
@@ -552,12 +552,12 @@ function dealNextCard(){
     else if(playerValue > 21 && dealerValue > 21){
         // newAmount = currentBetValue;
         gamePush = true;
-        message.innerHTML += "<br>Player and Dealer both Busted!!!PUSH!";
+        message.innerHTML += "<br>PUSH!";
     }
     else if(playerValue > 21){
         playerWins = false;
-        message.innerHTML += "Player Busted!!!<br>Dealer WINS! Try Again.";
-        // message.innerHTML += "<br>You lost $" + currentBetValue + "!";
+        message.innerHTML += "Player Busted!.";
+        message.innerHTML += "<br>You lost $" + currentBetValue + "!";
     }
     // else if(playerValue == 21 && playerCard.length == 2){
     //     message.innerHTML += "<br>Player BlackJack!!!";
@@ -571,11 +571,11 @@ function dealNextCard(){
     else if(playerValue == dealerValue){
         gamePush = true;
         // newAmount = currentBetValue;
-        message.innerHTML += "<br>PUSH!";
+        message.innerHTML += "<br> PUSH!";
     }
     else{
         playerWins = false;
-        message.innerHTML += "<br>Dealer WINS! Try Again.";
+        message.innerHTML += " Dealer WINS!";
         message.innerHTML += "<br>You lost $" + currentBetValue + "!";
     }
     
@@ -599,7 +599,7 @@ function dealNextCard(){
         newAmount = 2 * currentBetValue;
         updateTotalAmountAfterWin(newAmount);
         //updateTotalAmount(newAmount);
-        message.innerHTML += "<br>You Won $" + currentBetValue.toFixed(2) + "!";
+        message.innerHTML += "You WINS!<br>You Won $" + currentBetValue.toFixed(2) + "!";
     }
    else{
        updateTotalAmountAfterLose();
