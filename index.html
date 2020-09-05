@@ -3,68 +3,79 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
     <title>BlackJack</title>
     <link rel="stylesheet" href="./css/blackjack.css" />
   </head>
   <body>
     <div id="wrapper">
-        <div id="header-info">
-         
-          <h2 id="playerInfo"></h2>
-          <h2 id="gameName">BlackJack Game</h2>
-          
-        </div>   
-      
-      <div id="gameArea">
-        <div > <p id="message">Fix Bet Amount and Click on 'Start Game'!</p> </div>
-       
-          <div id="total">
-            Your Wallet Balance : $<span id="totalDollars">0.0</span>
-          </div>
-          <div>
-            Bet Amount $
-            <input type="number" id="inputBetAmount" value="5" min="1" max="100" />
-            <button id="maxBetAmount" type="button" class="btn">Max Bet</button>
-          </div>
-          <div id="start">
-            <button id="btnStart" type="button" class="btn">Start Game</button>
-          </div>
-          <div id="output">
-            Dealer Hand: <span id="dealerCardValue"></span>
-            <div id="dealerHand"></div>
-            Player Hand: <span id="playerCardValue"></span>
-            <div id="playerHand"></div>
-          </div>
-          <div id="playerActions">
-            <button id="btnHold" type="button" class="btn">Hold</button>
-            <button id="btnHit" type="button" class="btn">Hit</button>
-            <button id="btnDouble" type="button" class="btn">Double</button>
-          </div>
-          <div id="btnDealSetting">
-            <button id="btnNewDeal" type="button" class="btn">
-              Start New Deal
-            </button>
-          </div>
-      </div> <!--end of div- gameArea -->
+      <div id="header-info">
+        <h2 id="playerInfo">Hey,</h2>
+        <h2 id="gameName">BlackJack Game</h2>
+      </div>
 
+      <section id="gameArea">
+        <div>
+          <p id="message">Fix Bet Amount and Click on 'Start Game'!</p>
+        </div>
+        <div id="total">
+          Your Wallet Balance : $<span id="totalDollars">0.0</span>
+        </div>
+        <div>
+          Bet Amount $
+          <input type="number" id="inputBetAmount" value="5" min="1" max="100"/>
+          <button id="maxBetAmount" type="button" class="btn">Max Bet</button>
+        </div>
+        <div id="start">
+          <button id="btnStart" type="button" class="btn">Start Game</button>
+        </div>
+        <div id="output">
+         <strong>Dealer Hand:</strong>  <span id="dealerCardValue"></span>
+          <div id="dealerHand"></div>
+         <strong>Player Hand:</strong>  <span id="playerCardValue"></span>
+          <div id="playerHand"></div>
+        </div>
+        <div id="playerActions">
+          <button id="btnHold" type="button" class="btn">Hold</button>
+          <button id="btnHit" type="button" class="btn">Hit</button>
+          <button id="btnDouble" type="button" class="btn">Double</button>
+        </div>
+        <div id="btnDealSetting">
+          <button id="btnNewDeal" type="button" class="btn">
+            Start New Deal
+          </button>
+        </div>
+      </section><!--end of section- gameArea -->
       <div id="divGameSettings">
         <h3>Settings</h3>
         <fieldset>
           <legend>Game Registration</legend>
           <label for="inputPlayerName">Player Name : </label>
-          <input type="text" id="inputPlayerName"  placeholder="Full Name" value="" name="inputPlayerName"/><span class="mandatory">*</span>
+          <input
+            type="text"
+            id="inputPlayerName"
+            placeholder="Full Name"
+            value=""
+            name="inputPlayerName"
+          /><span class="mandatory">*</span>
           <label for="inputDepositAmount">Deposit Amount ($) : </label>
-          <input type="number" id="inputDepositAmount" value="0" name="inputDepositAmount" />
+          <input
+            type="number"
+            id="inputDepositAmount"
+            value="0"
+            name="inputDepositAmount"
+          />
         </fieldset>
         <div id="btnOKCancel">
           <button id="btnRegistrationOK" class="btn">OK</button>
           <button id="btnRegistrationCancel" class="btn">Cancel</button>
         </div>
-      </div> <!--end of div- gameSettings-->
-      <button id="btnSettings">&#9881</button>
+      </div>
+      <!--end of div- gameSettings-->
+      <button id="btnSettings">&#9881;</button>
       <div id="sorryMessage"></div>
-    </div> <!--end of div- wrapper -->
-    <script type="text/babel" src="./js/blackjack.js"></script>
+    </div><!--end of div- wrapper -->
+    <!-- <script type="text/babel" src="./js/blackjack.js"></script> -->
+    <script src="./js/blackjack.js"></script>
   </body>
 </html>

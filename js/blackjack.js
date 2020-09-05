@@ -41,7 +41,7 @@
  var dealerHand;
  var playerHand;
  var dealerCardValue ;
- var playercardValue ;
+ var playerCardValue ;
  var inputBetAmount;
  var totalDollars;
  var playerActions;
@@ -61,13 +61,12 @@
 
  //Adds event listener
  window.addEventListener('load',init);
- window.addEventListener('resize',init);
+ window.addEventListener('resize',pageLayout);
  //btnStart = document.getElementById('btnStart').addEventListener('click', startGame,false); 
 
  //function to initialize the basic config info when browser loads
  function init(){
      
-
      //initializes all DOMs to varibles
      output = document.getElementById('output');
      message = document.getElementById('message');
@@ -227,34 +226,32 @@
      //load globar variable
      aWidth = window.innerWidth;
      aHeight = window.innerHeight;
-
+    console.log("Width and Height : ");
+    console.log(aWidth +", " + aHeight);
      //for mobile screen size <= 620px
      if(aWidth  <= 620){
-        //  alert("aHeight: " + aHeight);
-        pWidth = aWidth - 300;
-        pHeight = aHeight - 10;
-        wrapper.style.width = '100%';
-        wrapper.style.height = pHeight + 'px';
-
+        pHeight = aHeight; 
+        wrapper.style.height = pHeight +'px';
         //btnSetting
         btnSettings.style.width = '25px';
         btnSettings.style.height = '25px'
-
      }
      else{
          //for the screen larger than 620px
         pWidth = aWidth - 300;
         pHeight = aHeight - 10;
         wrapper.style.width = '80%';
+        // wrapper.style.height = '100%';
         wrapper.style.marginTop ='0';
         wrapper.style.marginBottom = '0';
         wrapper.style.marginLeft = 'auto';
         wrapper.style.marginRight ='auto';
-        wrapper.style.height = pHeight + 'px';
+        // wrapper.style.height = pHeight + 'px';
 
         //btnSetting
         btnSettings.style.width = '30px';
         btnSettings.style.height = '30px'
+        // btnSettings.style.textAlign = 'center';
      }
     
 
@@ -263,6 +260,8 @@
  //function to create a deck of cards consisting of 52 different cards
  function createDeckOfCards(){
     //  var test = 0;
+    let s;
+    let n;
      for(s in suits){
          let suit = suits[s][0].toUpperCase();
          let bgcolor = (suit == 'S' || suit == 'C') ? "#000000" : "#ff0000";
@@ -628,6 +627,8 @@ function dealNextCard(){
      return (total +" (" + cardsInfo + ")");
  }
 */
+
+/*
  dealerValue = () =>{
      //alert("testing from dealerValue");
      let firstCard = "?";
@@ -652,6 +653,32 @@ function dealNextCard(){
     }
     
  };
+ */
+
+
+function dealerValue(){
+    //alert("testing from dealerValue");
+    let firstCard = "?";
+   if(hideFirstCard){
+       return firstCard + "+" + dealerCard[1].cardValue;
+   }
+   else{
+       let total = 0;
+       let cardsInfo = "";
+       for(let i = 0; i < erCard.length; i++){
+           total += dealerCard[i].cardValue;
+           if(i != (dealerCard.length -1)){
+              cardsInfo += dealerCard[i].cardNum + "+";
+           }else{
+              cardsInfo += dealerCard[i].cardNum ;
+           } 
+       }
+       let returnValue = total + "(" +  cardsInfo +")";
+       //alert (returnValue);
+       return (total +" (" + cardsInfo + ")");
+   }  
+}
+
  function calculateDealerCardValue(){
     //alert("Testing from calculateDealerCardValue()");
    

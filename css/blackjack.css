@@ -10,14 +10,14 @@ body{
   background-color: rgb(216,216,216);
 }
 h2{
-  font-size: 1.5em;
+  font-size: 150%;
 }
 h3{
-  font-size: 1.2em;
+  font-size: 150%;
 }
 #wrapper{
   /* width: 1200px; */
-  width: 90%;
+  /* width: 90%; */
   margin: 0 auto;
   margin: 0 ;
   background-color: rgb(255,255,255);
@@ -102,7 +102,7 @@ h3{
       margin: 0;
       padding: 0;
       text-align: center;
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: bold;
       /* background-color: lightyellow; */
   }
@@ -112,7 +112,7 @@ h3{
     position: absolute;
     top: 60px;
     left: 10px;
-    width: 99%;
+    width: 100%;
     /* border: 1px solid red; */
   }
   #btnNewDeal, #playerActions{
@@ -199,6 +199,7 @@ form > button{
 }
 #inputBetAmount{
   z-index: -1;
+  width: 100px;
 }
 #btnOKCancel{
   /* border: 1px solid lightgray; */
@@ -233,6 +234,10 @@ form > button{
 
 
 }
+
+#start{
+  /* text-align: center; */
+}
 .mandatory:hover{
 
 }
@@ -251,33 +256,55 @@ form > button{
 
 .btn{
   border-radius: 5px;
-  padding: 8px 5px;
+  padding: 5px 2px;
   color: #ffffff;
   display: inline-block;
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.1em;
   text-align: center;
   text-shadow: 2px 2px 3px #000000;
-  width: 130px;
+  /* width: 130px; */
   /* box-shadow: 5px 5px 5px lightgray; */
 }
+
 #btnStart{
   background-color: #00ff00;
+  width: 110px;
 }
 #btnHold{
   background-color: #ff0000;
+  width: 100px;
 }
 #maxBetAmount{
   background-color: #ff0000;
+  width: 100px;
+  /* width: 100px ;
+  height: 35px;
+  padding: 0 5px; */
 }
 #btnHit{
   background-color: #00ff00;
+  width: 100px;
 }
 #btnDouble{
   background-color: #0000ff;
+  width: 100px;
 }
 
 #btnNewDeal{
   background-color: #00ff00;
   width: 150px;
+  /* text-align: center; */
+}
+#btnDealSetting{
+  text-align: center;
+  /* padding-right: px; */
+  /* text-align: center; */
+}
+#btnSettings{
+  margin: 0;
+  padding: 0;
+  /* padding-right: 1px; */
+  font-size: 1.2em;
+  font-weight: bold;
 }
