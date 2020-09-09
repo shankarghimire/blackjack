@@ -148,9 +148,12 @@ const btnExitGame = document.getElementById('btnExitGame');
             disableMaxBetButton();
         }else{
             //alert("Hey," + pName +"! your wallet is empty!");
-            let msg =`Hey! ${playerName.value}, you don't have sufficient blanace in your Wallet!`;
-            window.alert(msg);
-            let ch = confirm("Do you want to load money in your Wallet?");
+            let msg =`Hey! ${playerName.value}, 
+                you don't have sufficient blanace in your Wallet!
+                Do you want to load money in your Wallet?
+                `;
+            //window.alert(msg);
+            let ch = confirm(msg);
             if(ch === true){
                 //alert("Testing loading money");
                 
@@ -795,9 +798,18 @@ function doubleEnable(){
         endPlay();
     }
     else{
-        alert("Hey, " + pName + ", You don't have sufficient balance to 'Double'" );
-        let ch = confirm("Would you want to load money in your Wallet?");
-        console.log("choice : ", ch);
+        let confirmMessage = `Hey, ${pName},
+        you don't have sufficient blanace in your Wallet!
+        Do you want to load money in your wallet?`;
+        let ch = confirm(confirmMessage);
+        if(ch === true){
+            divGameSettings.style.display = 'block';
+            gameArea.style.display = 'none';
+        }
+        else{
+            
+        }
+        
     }
     console.log("Current Total Amount",currentTotalAmount);
     console.log("Current Bet Amount", currentBetAmount);
