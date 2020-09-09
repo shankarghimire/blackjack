@@ -121,7 +121,7 @@ const btnExitGame = document.getElementById('btnExitGame');
     },false);
 
     btnRegistrationCancel.addEventListener('click',()=>{
-        cancelGame();
+        endGame();
         window.close();
         //alert("Testing!!!");
     },false);
@@ -167,7 +167,7 @@ const btnExitGame = document.getElementById('btnExitGame');
 
     btnExitGame.addEventListener('click',()=>{
         //alert("Testing Exit Button");
-        cancelGame();
+        endGame();
         window.close();
     },false);
 
@@ -337,10 +337,21 @@ function startGame(){
             //totalDollars.innerHTML = totalAmount;
         }
         else{
-            let msg =`Hey! ${playerName.value}, you don't have sufficient blanace in your Wallet!\n Please, load your Wallet.`;
-            window.alert(msg);
-            divGameSettings.style.display = 'block';
-            gameArea.style.display = 'none';
+            // let msg =`Hey! ${playerName.value}, you don't have sufficient blanace in your Wallet!`;
+            // window.alert(msg);
+            let confirmMessage = `Hey, ${pName},
+                you don't have sufficient blanace in your Wallet!
+                Do you want to load money in your wallet?`;
+            let ch = confirm(confirmMessage);
+            if(ch === true){
+                divGameSettings.style.display = 'block';
+                gameArea.style.display = 'none';
+            }
+            else{
+                endGame();
+                window.close();
+            }
+            
         } 
     }
        
@@ -722,7 +733,7 @@ const registerGame = () =>{
     }  
 }
 
-const cancelGame = ()=>{
+const endGame = ()=>{
     //alert("Testing!!!");
     let exitMessage = `Hey, ${pName}! 
         Thanks for playing BlackJack. 
