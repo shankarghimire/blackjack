@@ -235,13 +235,6 @@ form > button{
 
 }
 
-#start{
-  /* text-align: center; */
-}
-.mandatory:hover{
-
-}
-
 #sorryMessage{
   padding-top: 200px;
   display: absolute;
@@ -296,8 +289,12 @@ form > button{
   width: 150px;
   /* text-align: center; */
 }
+#btnExitGame{
+  background-color: #ff0000;
+  width: 100px;
+}
 #btnDealSetting{
-  text-align: center;
+  text-align: left;
   /* padding-right: px; */
   /* text-align: center; */
 }

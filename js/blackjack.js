@@ -1,64 +1,61 @@
-
 //globar variables to hold cards information
  var suits = ["spades","hearts","clubs","diams"];
  var numbers =["A","2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] ;
 //var numbers =["A","A", "A", "A", "A", "A", "A", "A", "A", "10", "J", "Q", "K"] ;
  var deckOfCards=[]; //an empty array to hold 52 cards
- var cardCount = 0; //
+ var cardCount = 0; 
  var playerCard=[];
  var dealerCard=[];
  var hideFirstCard = true;
  var totalAmount = 0.0;
- var betAmount;
- var endGame = false;
+ //var betAmount;
+ //var endGame = false;
  var playerBusted = false;
  var playerBlackJack = false;
  var dealerBlackJack = false;
- var playerName = "Mr. Game Lover";
- var depositAmount = 0.0;
  var userNotRegistered = true;
  var aWidth;
  var aHeight;
  var pWidth;
  var pHeight;
- var pName;
+ var pName = "Mr. Gamer";
  var dAmount;
  var playerHandValue =0;
  var dealerHandValue = 0;
+ var isMaxEnabled = false;
 
-
-
- 
- //variables to hold DOMs
- var output;
- var message;
- var btnStart;
- var btnHit;
- var btnHold;
- var btnDouble;
- var btnNewDeal;
- var start;
- var dealerHand;
- var playerHand;
- var dealerCardValue ;
- var playerCardValue ;
- var inputBetAmount;
- var totalDollars;
- var playerActions;
- var coverCard;
- var btnDealSetting;
- var playerInfo;
- var gameName;
- var btnSettings;
- var btnRegistrationOK;
- var btnRegistrationCancel;
- var wrapper;
- var gameArea;
- var sorryMessage;
- var maxBetAmount;
- 
-
-
+ //initializes all DOMs to varibles
+const output = document.getElementById('output');
+const message = document.getElementById('message');
+const btnStart = document.getElementById('btnStart');
+const start = document.getElementById('start');
+const btnHold = document.getElementById('btnHold');
+const btnHit = document.getElementById('btnHit');
+const btnDouble = document.getElementById('btnDouble');
+const btnNewDeal = document.getElementById('btnNewDeal');
+const dealerHand = document.getElementById('dealerHand');
+const playerHand = document.getElementById('playerHand');
+const dealerCardValue = document.getElementById('dealerCardValue');
+const playerCardValue = document.getElementById('playerCardValue');
+const inputBetAmount = document.getElementById('inputBetAmount');
+const totalDollars = document.getElementById('totalDollars');
+const playerActions = document.getElementById('playerActions');
+const coverCard = document.getElementById('coverCard');
+const btnDealSetting = document.getElementById('btnDealSetting');
+const playerInfo = document.getElementById('playerInfo');
+// const playerInfo = document.getElementById('playerInfo');
+// const playerInfo = document.getElementById('playerInfo');
+const gameName = document.getElementById("gameName");
+const btnSettings = document.getElementById('btnSettings');
+const btnRegistrationOK = document.getElementById('btnRegistrationOK');
+const btnRegistrationCancel = document.getElementById('btnRegistrationCancel');
+const wrapper = document.getElementById('wrapper');
+const gameArea = document.getElementById('gameArea');
+const playerName = document.getElementById('inputPlayerName');
+const depositAmount = document.getElementById('inputDepositAmount');
+const sorryMessage = document.getElementById('sorryMessage');
+const maxBetAmount = document.getElementById('maxBetAmount');
+const btnExitGame = document.getElementById('btnExitGame');
  //Adds event listener
  window.addEventListener('load',init);
  window.addEventListener('resize',pageLayout);
@@ -66,97 +63,50 @@
 
  //function to initialize the basic config info when browser loads
  function init(){
-     
-     //initializes all DOMs to varibles
-     output = document.getElementById('output');
-     message = document.getElementById('message');
-     btnStart = document.getElementById('btnStart');
-     start = document.getElementById('start');
-     btnHold = document.getElementById('btnHold');
-     btnHit = document.getElementById('btnHit');
-     btnDouble = document.getElementById('btnDouble');
-     btnNewDeal = document.getElementById('btnNewDeal');
-     dealerHand = document.getElementById('dealerHand');
-     playerHand = document.getElementById('playerHand');
-     dealerCardValue = document.getElementById('dealerCardValue');
-     playerCardValue = document.getElementById('playerCardValue');
-     inputBetAmount = document.getElementById('inputBetAmount');
-     totalDollars = document.getElementById('totalDollars');
-     playerActions = document.getElementById('playerActions');
-     coverCard = document.getElementById('coverCard');
-     btnDealSetting = document.getElementById('btnDealSetting');
-     playerInfo = document.getElementById('playerInfo');
-     gameName = document.getElementById("gameName");
-     btnSettings = document.getElementById('btnSettings');
-     btnRegistrationOK = document.getElementById('btnRegistrationOK');
-     btnRegistrationCancel = document.getElementById('btnRegistrationCancel');
-     wrapper = document.getElementById('wrapper');
-     gameArea = document.getElementById('gameArea');
-     playerName = document.getElementById('inputPlayerName');
-     depositAmount = document.getElementById('inputDepositAmount');
-    sorryMessage = document.getElementById('sorryMessage');
-    maxBetAmount = document.getElementById('maxBetAmount');
-
      divGameSettings.style.display = 'block';
      gameArea.style.display = 'none';
      sorryMessage.style.display = 'none';
-     
-
+     btnExitGame.style.display = 'none';
      //calls function
      pageLayout();
-     //inputPlayerInformation();
-     
-     //section to call other functions
      createDeckOfCards();   
 
      //Adds Event Listener
      btnStart.addEventListener('click',startGame,false);
+
      btnHold.addEventListener('click',()=>{
          //alert("Testing 'Hold' button" );
          cardAction('hold');
-
-         //btnDeal.style.display = "block";
-         //playerActions.style.display = "none";
      },false);
+
      btnHit.addEventListener('click',()=>{
         //alert("Testing 'Hit' button" );
-        // let btnValue = 'hit';
         cardAction('hit');
     },false);
+
     btnDouble.addEventListener('click',()=>{
         //alert("Testing 'Double' button" );
         cardAction('double');
     },false);
 
     btnNewDeal.addEventListener('click',()=>{
-        //console.log("Testing from btnNewDeal ");
+      
         //alert("Testing 'New Deal' button" );
-        //dealNewCards();
-
         //Enables the inputBetAmount input
         playerHand.innerHTML = "";
         dealerHand.innerHTML = "";
         dealerCardValue.innerHTML = "";
         playerCardValue.innerHTML = "";
         message.innerHTML ="Fix Bet Amount & Click on 'Start Game'";
-        inputBetAmount.disabled = false;
-        
-        
+        inputBetAmount.disabled = false;  
         btnStart.style.display = 'block';
         btnNewDeal.style.display = 'none';
+        btnExitGame.style.display = 'none';
 
-        // maxBetAmount.disabled = false;
-        // maxBetAmount.style.backgroundColor = "rgb(0,255,0)";
-        // maxBetAmount.style.color = "#ffffff";
+        //function call
         enableMaxBetButton();
-
         //startGame();
-
     },false);
-
-    // inputBetAmount.addEventListener('change',()=>{
-
-    // }, false);
 
     btnSettings.addEventListener('click',()=>{
         //alert("Testing!!!");
@@ -188,11 +138,37 @@
 
     
     maxBetAmount.addEventListener('click',()=>{
-        inputBetAmount.value = totalDollars.innerHTML;
-        disableMaxBetButton();
-        // maxBetAmount.style.backgroundColor = "rgb(128,128,128)";
-        // maxBetAmount.style.color ="lightgrey";
-        // maxBetAmount.disabled = true;
+        let currentTotalAmount = parseFloat(totalDollars.innerHTML);
+        if(currentTotalAmount > 0 ){
+            isMaxEnabled = true;
+            inputBetAmount.value = totalDollars.innerHTML;
+            totalDollars.innerHTML = parseFloat(totalDollars.innerHTML) - parseFloat(inputBetAmount.value);
+            inputBetAmount.disabled = true;
+           
+            disableMaxBetButton();
+        }else{
+            //alert("Hey," + pName +"! your wallet is empty!");
+            let msg =`Hey! ${playerName.value}, you don't have sufficient blanace in your Wallet!`;
+            window.alert(msg);
+            let ch = confirm("Do you want to load money in your Wallet?");
+            if(ch === true){
+                //alert("Testing loading money");
+                
+                divGameSettings.style.display = 'block';
+                gameArea.style.display = 'none';
+            }
+            else{
+                alert("Testing ending game!");
+            }
+        }
+       
+
+    },false);
+
+    btnExitGame.addEventListener('click',()=>{
+        //alert("Testing Exit Button");
+        cancelGame();
+        window.close();
     },false);
 
  }
@@ -203,6 +179,7 @@
     maxBetAmount.style.textShadow = "none";
     maxBetAmount.disabled = true;
  }
+
  function enableMaxBetButton(){
     maxBetAmount.style.backgroundColor = "rgb(255,0,0)";
     maxBetAmount.style.color ="#ffffff";
@@ -212,49 +189,46 @@
  }
 
  function checkBetAmount(){
-     let tAmount = parseFloat(totalAmount.innerHTML);
-     let bAmount = parseFloat(inputBetAmount.value);
-     if(bAmount > tAmount){
-         return false;
-     }
-     return true;
-     
+    let tAmount = parseFloat(totalAmount.innerHTML);
+    let bAmount = parseFloat(inputBetAmount.value);
+    if(bAmount > tAmount){
+        return false;
+    }
+    return true;  
  }
 
- function pageLayout(){
-     
-     //load globar variable
-     aWidth = window.innerWidth;
-     aHeight = window.innerHeight;
-    console.log("Width and Height : ");
-    console.log(aWidth +", " + aHeight);
-     //for mobile screen size <= 620px
-     if(aWidth  <= 620){
-        pHeight = aHeight; 
-        wrapper.style.height = pHeight +'px';
-        //btnSetting
-        btnSettings.style.width = '25px';
-        btnSettings.style.height = '25px'
-     }
-     else{
-         //for the screen larger than 620px
-        //pWidth = aWidth - 300;
-        pHeight = aHeight - 10;
-        wrapper.style.width = '80%';
-        wrapper.style.height = pHeight +'px';
-        wrapper.style.marginTop ='0';
-        wrapper.style.marginBottom = '0';
-        wrapper.style.marginLeft = 'auto';
-        wrapper.style.marginRight ='auto';
-        // wrapper.style.height = pHeight + 'px';
-
-        //btnSetting
-        btnSettings.style.width = '30px';
-        btnSettings.style.height = '30px'
-        // btnSettings.style.textAlign = 'center';
-     }
-    
-
+ function pageLayout(){    
+    //load globar variable
+    aWidth = window.innerWidth;
+    aHeight = window.innerHeight;
+    //console.log("Width and Height : ");
+    //console.log(aWidth +", " + aHeight);
+    //for mobile screen size <= 620px
+    if(aWidth  <= 620){
+       pHeight = aHeight; 
+       wrapper.style.width = '100%';
+       wrapper.style.margin = '0';
+       wrapper.style.height = pHeight +'px';
+       //btnSetting
+       btnSettings.style.width = '25px';
+       btnSettings.style.height = '25px'
+    }
+    else{
+        //for the screen larger than 620px
+       //pWidth = aWidth - 300;
+       pHeight = aHeight;
+       wrapper.style.width = '80%';
+       wrapper.style.height = pHeight +'px';
+       wrapper.style.marginTop ='0';
+       wrapper.style.marginBottom = '0';
+       wrapper.style.marginLeft = 'auto';
+       wrapper.style.marginRight ='auto';
+       // wrapper.style.height = pHeight + 'px';
+       //btnSetting
+       btnSettings.style.width = '30px';
+       btnSettings.style.height = '30px'
+       // btnSettings.style.textAlign = 'center';
+    }
  }
 
  //function to create a deck of cards consisting of 52 different cards
@@ -262,35 +236,35 @@
     //  var test = 0;
     let s;
     let n;
-     for(s in suits){
-         let suit = suits[s][0].toUpperCase();
-         let bgcolor = (suit == 'S' || suit == 'C') ? "#000000" : "#ff0000";
-         for(n in numbers){
-             let cardValue =( ( n >= 9 ) ? 10 : (parseInt(n) + 1) );
-             //creates a Card Object
-             let aCard = {
-                 suit: suit,
-                 icon: suits[s],
-                 bgcolor: bgcolor,
-                 cardNum: numbers[n],
-                 cardValue: cardValue,
-             }
-             deckOfCards.push(aCard);
-             //console.log(numbers[n]+ "&" +  suits[s]  + ";");
-         }   
-     }
-     //console.log(" Deck of Cards -before Shuffuling:");
-     //console.log(deckOfCards);  
-     //randomCard();     
- }
+    for(s in suits){
+        let suit = suits[s][0].toUpperCase();
+        let bgcolor = (suit == 'S' || suit == 'C') ? "#000000" : "#ff0000";
+        for(n in numbers){
+            let cardValue =( ( n >= 9 ) ? 10 : (parseInt(n) + 1) );
+            //creates a Card Object
+            let aCard = {
+                suit: suit,
+                icon: suits[s],
+                bgcolor: bgcolor,
+                cardNum: numbers[n],
+                cardValue: cardValue,
+            }
+            deckOfCards.push(aCard);
+            //console.log(numbers[n]+ "&" +  suits[s]  + ";");
+        }   
+    }
+    //console.log(" Deck of Cards -before Shuffuling:");
+    //console.log(deckOfCards);  
+    //randomCard();     
+}
 
- function randomCard(){
-     let randomNum = Math.floor(Math.random() * 52 );
-     output.innerHTML += "<span style='color:" + deckOfCards[randomNum].bgcolor +"';> &" +  deckOfCards[randomNum].icon + ";" + deckOfCards[randomNum].cardNum+ "</span> ";
-     //output.innerHTML += "<span style='color:" + deckOfCards[0].bgcolor +"';> &" +  deckOfCards[0].icon + ";" + deckOfCards[0].cardNum+ "</span> ";
- }
+function randomCard(){
+    let randomNum = Math.floor(Math.random() * 52 );
+    output.innerHTML += "<span style='color:" + deckOfCards[randomNum].bgcolor +"';> &" +  deckOfCards[randomNum].icon + ";" + deckOfCards[randomNum].cardNum+ "</span> ";
+    //output.innerHTML += "<span style='color:" + deckOfCards[0].bgcolor +"';> &" +  deckOfCards[0].icon + ";" + deckOfCards[0].cardNum+ "</span> ";
+}
 
- //function to shuffle the deck of cards
+//function to shuffle the deck of cards
 function  shuffleDeckOfCards(cardArray){
     for(let i = (cardArray.length-1); i >=0; i--){
         let j = Math.floor(Math.random() * (i + 1));
@@ -303,7 +277,6 @@ function  shuffleDeckOfCards(cardArray){
     return cardArray;
 }
 
-
 function startGame(){
     message.innerHTML = "";
     playerBusted = false;
@@ -313,8 +286,8 @@ function startGame(){
     let tAmount = parseFloat(totalDollars.innerHTML);
     let bAmount = parseFloat(inputBetAmount.value);
 
-    if(bAmount <= tAmount){
-        //Call function to disable maxBetButton
+    //code to check MaxBet button is presse or not
+    if(isMaxEnabled){
         disableMaxBetButton();
         // if(userNotRegistered){
         //     inputPlayerInformation();
@@ -329,30 +302,55 @@ function startGame(){
         checkBlackJack();
 
         //Extract bet amount
-        let currentBetAmount = parseFloat(inputBetAmount.value);
+        //let currentBetAmount = parseFloat(inputBetAmount.value);
         //updateTotalAmount(-currentBetAmount);
-        updateTotalAmountAfterBet(currentBetAmount);
+        //updateTotalAmountAfterBet(currentBetAmount);
 
         //Hide Start Button
         btnStart.style.display = "none";
         //document.getElementById('start').style.display = 'none';
         //totalDollars.innerHTML = totalAmount;
-    }
-    else{
-        let msg =`Hey! ${playerName.value}, you don't have sufficient blanace in your Wallet!\n Please, load your Wallet.`;
-        window.alert(msg);
-        divGameSettings.style.display = 'block';
-        gameArea.style.display = 'none';
-    }
+    }else{
+        if(bAmount <= tAmount){
+            //Call function to disable maxBetButton
+            disableMaxBetButton();
+            // if(userNotRegistered){
+            //     inputPlayerInformation();
+            // }
+            //alert("Testing click event from start button");
+            shuffleDeckOfCards(deckOfCards);
     
+            //function call to deal cards
+            dealNewCards();
     
+            //function call to check BlackJack has occurred or not
+            checkBlackJack();
+    
+            //Extract bet amount
+            let currentBetAmount = parseFloat(inputBetAmount.value);
+            //updateTotalAmount(-currentBetAmount);
+            updateTotalAmountAfterBet(currentBetAmount);
+    
+            //Hide Start Button
+            btnStart.style.display = "none";
+            //document.getElementById('start').style.display = 'none';
+            //totalDollars.innerHTML = totalAmount;
+        }
+        else{
+            let msg =`Hey! ${playerName.value}, you don't have sufficient blanace in your Wallet!\n Please, load your Wallet.`;
+            window.alert(msg);
+            divGameSettings.style.display = 'block';
+            gameArea.style.display = 'none';
+        } 
+    }
+       
    //console.log("After start button is clicked: ");
    //console.log(deckOfCards); 
 }
 
 function dealNewCards(){
     //alert("Testing from 'dealNewCards() function!'");
-   cardCount = 0;
+    cardCount = 0;
     playerCard = [];
     dealerCard = [];
     playerBlackJack = false;
@@ -364,13 +362,14 @@ function dealNewCards(){
     message.innerHTML = "";
     playerActions.style.display = 'block';
     btnNewDeal.style.display = 'none';
+    btnExitGame.style.display = 'none';
     
     //calls function to reshuffle the deck
     shuffleDeckOfCards(deckOfCards);
     //calls function
     deal();
 
-     //function call to check BlackJack has occurred or not
+    //function call to check BlackJack has occurred or not
     //checkBlackJack()
     console.log("cardCount: ");
     console.log(cardCount);
@@ -424,6 +423,7 @@ function cardAction(a){
         case 'double':
             //alert("Testing-Double button pressed!")
             //logics to be added later
+            doubleEnable();
             break;
         default:
             //console.log('done');
@@ -460,7 +460,7 @@ function dealNextCard(){
     
     var card = '<div class="icard ' +  deckOfCards[n].icon +'" style=left:' + cardHorizontalPosition +'px;><div class="top-card suit">' + deckOfCards[n].cardNum  +' <br></div> <div class="content-card suit">  </div>  <div class="bottom-card suit">' + deckOfCards[n].cardNum +'<br></div></div>';
     return card;
-     //returns on CUI form
+    //returns on CUI form
     //return "<span style='color:" + deckOfCards[n].bgcolor + "';>" + deckOfCards[n].cardNum + "&" + deckOfCards[n].icon + ";</span>";
  }
 
@@ -483,36 +483,37 @@ function dealNextCard(){
     //Logic II:
     let rValue = 0;
     let aceValue = 0;
-     for(let i in arr){
-         //Checks the card is 'Ace' or other 
-         if(arr[i].cardNum =='A'){
-             //determines 'A' is 1 or 11 as required
-             if(rValue < 11){
-                aceValue = 11;
-             }
-             else{
-                 aceValue = 1;
-             }
-            rValue = rValue + aceValue;   
-         }
-         else{
-            rValue = rValue + arr[i].cardValue;
-         }   
-     }
-     return rValue;
+    for(let i in arr){
+        //Checks the card is 'Ace' or other 
+        if(arr[i].cardNum =='A'){
+            //determines 'A' is 1 or 11 as required
+            if(rValue < 11){
+               aceValue = 11;
+            }
+            else{
+                aceValue = 1;
+            }
+           rValue = rValue + aceValue;   
+        }
+        else{
+           rValue = rValue + arr[i].cardValue;
+        }   
+    }
+    return rValue;
  }
 
  function endPlay(){
-     //alert("Testing-endPlay() function");
-     //Disables the input bet amount button
-     inputBetAmount.disabled = true;
-    endGame = true;
+    //alert("Testing-endPlay() function");
+    //Disables the input bet amount button
+    inputBetAmount.disabled = true;
+    //endGame = true;
     document.getElementById('coverCard').style.display = 'none';
 
     playerActions.style.display = "none";
-    btnNewDeal.style.display = 'block';
+    btnNewDeal.style.display = 'inline-block';
+    btnExitGame.style.display = 'inline-block';
   
-    message.innerHTML += "Game Over! ";
+    message.innerHTML = "Game Over! ";
 
     //calculates Dealer's Card value
     let dealerValue = checkTotal(dealerCard);
@@ -529,7 +530,9 @@ function dealNextCard(){
         }
         //function call to determine winner
         declareWinner(dealerValue,playerValue);
-    // }  
+    // } 
+    
+    isMaxEnabled = false;
  }
  function declareWinner(dealerValue,playerValue){
     let payoutJack  = 1;
@@ -547,7 +550,6 @@ function dealNextCard(){
         playerWins = true;
         message.innerHTML += "Player BlackJack!";
         payoutJack = 1.5;
-        //newAmount = currentBetValue + ( currentBetValue * payoutJack);
     }
     else if(playerValue > 21 && dealerValue > 21){
         // newAmount = currentBetValue;
@@ -559,10 +561,6 @@ function dealNextCard(){
         message.innerHTML += "Player Busted!.";
         message.innerHTML += "<br>You lost $" + currentBetValue + "!";
     }
-    // else if(playerValue == 21 && playerCard.length == 2){
-    //     message.innerHTML += "<br>Player BlackJack!!!";
-    //     payoutJack = 1.5;
-    // }
     else if((playerValue <=21 && playerValue > dealerValue)|| (dealerValue > 21 && playerValue <= 21)){
         playerWins = true;
         // newAmount = currentBetValue +  currentBetValue; //bet amount has been alreay reduced from the total dollars
@@ -575,7 +573,7 @@ function dealNextCard(){
     }
     else{
         playerWins = false;
-        message.innerHTML += " Dealer WINS!";
+        message.innerHTML += " Dealer WIN!";
         message.innerHTML += "<br>You lost $" + currentBetValue + "!";
     }
     
@@ -599,7 +597,7 @@ function dealNextCard(){
         newAmount = 2 * currentBetValue;
         updateTotalAmountAfterWin(newAmount);
         //updateTotalAmount(newAmount);
-        message.innerHTML += "You WINS!<br>You Won $" + currentBetValue.toFixed(2) + "!";
+        message.innerHTML += "You WIN!<br>You Won $" + currentBetValue.toFixed(2) + "!";
     }
    else{
        updateTotalAmountAfterLose();
@@ -659,30 +657,27 @@ function dealNextCard(){
 function dealerValue(){
     //alert("testing from dealerValue");
     let firstCard = "?";
-   if(hideFirstCard){
+    if(hideFirstCard){
        return firstCard + "+" + dealerCard[1].cardValue;
-   }
-   else{
-       let total = 0;
-       let cardsInfo = "";
-       for(let i = 0; i < erCard.length; i++){
-           total += dealerCard[i].cardValue;
-           if(i != (dealerCard.length -1)){
+    }
+    else{
+        let total = 0;
+        let cardsInfo = "";
+        for(let i = 0; i < erCard.length; i++){
+            total += dealerCard[i].cardValue;
+            if(i != (dealerCard.length -1)){
               cardsInfo += dealerCard[i].cardNum + "+";
-           }else{
+            }else{
               cardsInfo += dealerCard[i].cardNum ;
-           } 
-       }
-       let returnValue = total + "(" +  cardsInfo +")";
-       //alert (returnValue);
-       return (total +" (" + cardsInfo + ")");
+            } 
+        }
+        let returnValue = total + "(" +  cardsInfo +")";
+        //alert (returnValue);
+        return (total +" (" + cardsInfo + ")");
    }  
 }
 
- function calculateDealerCardValue(){
-    //alert("Testing from calculateDealerCardValue()");
-   
-}
+
 function checkBlackJack(){
     let pValue = checkTotal(playerCard);
     let dValue = checkTotal(dealerCard);
@@ -694,29 +689,6 @@ function checkBlackJack(){
         endPlay();
     }
 }
-
-// function inputPlayerInformation(){
-//     let isNumber = false;
-//     let pName = prompt("Please, enter your name : ", "Mr. Gamer");
-
-//     if( pName != null &&  pName.length > 0){
-//         playerName = pName;
-//     }
-//     else{
-//         playerName = playerName;
-//     }
-
-//     depositAmount = prompt("Please, enter the deposit amount to start game: ",10);  
-//     while(isNaN(depositAmount) || depositAmount == null || depositAmount < 10){
-//         depositAmount = prompt("Please, enter the VALID deposit amount (minimum $10) to start game: ",0);  
-//     }
-    
-//     //alert(depositAmount);
-//     playerInfo.innerHTML = "Hey, " + playerName + " !";
-//     gameName.innerHTML = "Welcome to BlackJack!";
-//     totalDollars.innerHTML = depositAmount;
-//     userNotRegistered = false;
-// }
 
 const registerGame = () =>{
     //alert("Testing!!!");
@@ -752,7 +724,11 @@ const registerGame = () =>{
 
 const cancelGame = ()=>{
     //alert("Testing!!!");
-    
+    let exitMessage = `Hey, ${pName}! 
+        Thanks for playing BlackJack. 
+        See you soooon again. 
+        ☺☺☺`;
+    alert(exitMessage);
     // sorryMessage.innerHTML = "Sorry! Game is not On! <br>Please, clikc the 'Setting' button at the top-right corner and fill up the Game Registration Form.";
     // sorryMessage.style.display = 'block';
     // divGameSettings.style.display = 'none';
@@ -790,4 +766,30 @@ function updateTotalAmountAfterPush(amount){
     let tAmount = parseFloat(totalDollars.innerHTML);
     tAmount = tAmount + amount;
     totalDollars.innerHTML = tAmount.toFixed(2);
+}
+
+function doubleEnable(){
+    let currentBetAmount =  parseFloat(inputBetAmount.value);
+    let currentTotalAmount = parseFloat(totalDollars.innerHTML);
+
+    //Checks the total remaining amount is sufficient for double option or not
+    if( currentTotalAmount >= currentBetAmount){
+        inputBetAmount.disabled = false;
+        inputBetAmount.value = parseFloat(inputBetAmount.value) + parseFloat(currentBetAmount) ;
+        inputBetAmount.disabled = true;
+        currentTotalAmount = parseFloat(currentTotalAmount) - parseFloat(currentBetAmount) ;
+        totalDollars.innerHTML = currentTotalAmount;
+
+        dealNextCard();
+        endPlay();
+    }
+    else{
+        alert("Hey, " + pName + ", You don't have sufficient balance to 'Double'" );
+        let ch = confirm("Would you want to load money in your Wallet?");
+        console.log("choice : ", ch);
+    }
+    console.log("Current Total Amount",currentTotalAmount);
+    console.log("Current Bet Amount", currentBetAmount);
+    let dblBetAmount = PaymentRequestUpdateEvent
+    
 }
