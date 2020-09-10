@@ -159,6 +159,7 @@ const btnExitGame = document.getElementById('btnExitGame');
                 
                 divGameSettings.style.display = 'block';
                 gameArea.style.display = 'none';
+                inputBetAmount.disabled = false;
             }
             else{
                 alert("Testing ending game!");
@@ -286,6 +287,7 @@ function startGame(){
     dealerBlackJack = false;
     playerBlackJack = false;
     cardCount = 0;
+    inputBetAmount.disabled = true;
     let tAmount = parseFloat(totalDollars.innerHTML);
     let bAmount = parseFloat(inputBetAmount.value);
 
@@ -349,6 +351,7 @@ function startGame(){
             if(ch === true){
                 divGameSettings.style.display = 'block';
                 gameArea.style.display = 'none';
+                inputBetAmount.disabled = false;
             }
             else{
                 endGame();
@@ -805,6 +808,7 @@ function doubleEnable(){
         if(ch === true){
             divGameSettings.style.display = 'block';
             gameArea.style.display = 'none';
+            inputBetAmount.disabled = false;
         }
         else{
             
