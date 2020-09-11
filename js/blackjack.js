@@ -388,8 +388,8 @@ function dealNewCards(){
 
     //function call to check BlackJack has occurred or not
     //checkBlackJack()
-    console.log("cardCount: ");
-    console.log(cardCount);
+    //console.log("cardCount: ");
+    //console.log(cardCount);
 }
 function deal(){
     let x;
@@ -418,10 +418,10 @@ function deal(){
     //playerCardValue.innerHTML = calculatePlayerCardValue();
     playerCardValue.innerHTML = checkTotal(playerCard);
 
-    console.log("Cards at Dealer's Hand : ");
-    console.log(dealerCard);
-    console.log("Cards at Player's Hand : ")
-    console.log(playerCard);
+    //console.log("Cards at Dealer's Hand : ");
+    //console.log(dealerCard);
+    //console.log("Cards at Player's Hand : ")
+    //console.log(playerCard);
  
 }
 
@@ -461,8 +461,8 @@ function dealNextCard(){
         endPlay();
     }
     
-    console.log("cardCount: ");
-    console.log(cardCount);
+    //console.log("cardCount: ");
+    //console.log(cardCount);
 }
  function cardOutput(n,x){
       //returns on GUI form
@@ -810,13 +810,13 @@ function doubleEnable(){
             gameArea.style.display = 'none';
             inputBetAmount.disabled = false;
         }
-        else{
+        // else{
             
-        }
+        // }
         
     }
-    console.log("Current Total Amount",currentTotalAmount);
-    console.log("Current Bet Amount", currentBetAmount);
-    let dblBetAmount = PaymentRequestUpdateEvent
+    //console.log("Current Total Amount",currentTotalAmount);
+    //console.log("Current Bet Amount", currentBetAmount);
+    //let dblBetAmount = PaymentRequestUpdateEvent
     
 }
